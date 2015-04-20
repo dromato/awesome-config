@@ -3,7 +3,6 @@ require("awful")
 require("awful.autofocus")
 require("awful.rules")
 require("awful.util")
-require("volume")
 -- Theme handling library
 require("beautiful")
 -- Notification library
@@ -253,7 +252,13 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+-- Volume keys
+    awful.key({}, "XF86AudioLowerVolume", function () os.execute("amixer -D pulse sset Master 10%-") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () os.execute("amixer -D pulse sset Master 10%+") end),
+    awful.key({}, "XF86AudioMute",        function () os.execute("amixer -D pulse sset Master 0%")   end),
+    awful.key({ modkey }, "F5",           function () os.execute("xbacklight -dec 10")               end),
+    awful.key({ modkey }, "F6",           function () os.execute("xbacklight -inc 10")               end)
 )
 
 clientkeys = awful.util.table.join(
